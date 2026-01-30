@@ -1,10 +1,4 @@
-﻿/*
- * Amanuel Haile
- * CST-250
- * 1/30/2026
- * Chess Board Project
- * Activity 2
- */
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,9 +14,9 @@ namespace ChessBoardClassLibrary.Models
 
         public int Column { get; private set; }
 
-        public string PieceOccupyingCell { get; private set; }
+        public string PieceOccupyingCell { get;  set; }
 
-        public bool IsLegalNextMove { get; private set; }
+        public bool IsLegalNextMove { get; \ set; }
         /// <summary>
         /// Parametized constructor
         /// </summary>
