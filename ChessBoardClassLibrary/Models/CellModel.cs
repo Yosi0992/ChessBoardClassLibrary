@@ -15,8 +15,7 @@ namespace ChessBoardClassLibrary.Models
         public int Column { get; private set; }
 
         public string PieceOccupyingCell { get;  set; }
-
-        public bool IsLegalNextMove { get; \ set; }
+        public bool IsLegalNextMove { get;  set; }
         /// <summary>
         /// Parametized constructor
         /// </summary>

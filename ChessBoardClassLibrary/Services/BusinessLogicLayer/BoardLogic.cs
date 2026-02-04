@@ -55,6 +55,58 @@ namespace ChessBoardClassLibrary.Services.BusinessLogicLayer
 
             return isRowSafe && isColSafe;
         }
+        /// <summary>
+        /// Mark the legal moves for a given chess piece
+        /// </summary>
+        /// <param name="board"></param>
+        /// <param name="currentCell"></param>
+        /// <param name="chessPiece"></param>
+        /// <returns></returns>
+        public BoardModel MarkLegalMoves(BoardModel board, CellModel currentCell, string chessPiece)
+        {
+            board = ResetBoard(board);
+            chessPiece = chessPiece.ToLower();
+            switch (chessPiece)
+            {
+                case "knight":
+                    // Set the occupying property of cell model for the current cell
+                    board.Grid[currentCell.Row, currentCell.Column].PieceOccupyingCell = "N";
+                    board = MarkValidKnightMoves(board, currentCell);
+                    break;
+                case "rook":
+
+                    break;
+                case "bishop":
+                    break;
+                case "queen":
+                    break;
+                case "king":
+                    break;
+                default:
+                    return board;
+                    break;
+            }
+
+            return board;
+        } // end of mark legal moves method
+
+        private BoardModel MarkValidKnightMoves(BoardModel board, CellModel currentCell)
+        {
+            // possible moves for knight row
+            int[] knightRowMoves = { 2, 1, -1, -2, -2, -1, 1, 2 };
+            // possible moves for knight column
+            int[] knightColMoves = { 1, 2, 2, 1, -1, -2, -2, -1 };
+            for (int i = 0; i < knightRowMoves.Length; i++)
+            {
+                // check if each move is on the board
+                if (IsOnBoard(board, currentCell.Row + knightRowMoves[i], currentCell.Column + knightColMoves[i]))
+                {
+                    // If the cell is on the board we are gonna label it as a possible move for the knight
+                    board.Grid[currentCell.Row + knightRowMoves[i], currentCell.Column + knightColMoves[i]].IsLegalNextMove = true;
+                }
+            }
+            return board;
+        }
 
 
     }
