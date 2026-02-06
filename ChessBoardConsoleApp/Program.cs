@@ -54,7 +54,7 @@ public static class Utility
                 {
                     Console.Write(" + ");
                 }
-                else if (!string.IsNullOrEmpty(cell.PieceOccupyingCell))
+                else if (cell.PieceOccupyingCell != "")
                 {
                     // Print the pieces letter
                     Console.Write($" {cell.PieceOccupyingCell} ");
