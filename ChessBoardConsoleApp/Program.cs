@@ -5,17 +5,32 @@
  * Chess Game Console App
  * In class activity
  */
-
+using ChessBoardClassLibrary.Models;
+using ChessBoardClassLibrary.Services.BusinessLogicLayer;
+using System.Transactions;
 //-------------------------------------------------------------------------------
 // Start of the main method
 //-------------------------------------------------------------------------------
-using ChessBoardClassLibrary.Models;
-
 Console.WriteLine("Hello Chess Players!");
+string piece = "";
+int row = 0;
+int col = 0;
+BoardModel board = new BoardModel(8);
+BoardLogic logic = new BoardLogic();
 
+Utility.PrintBoard(board);
 
+Console.Write("Enter the type of piece you want to place: ");
+piece = Console.ReadLine();
+Console.Write("Enter the row: ");
+row = int.Parse(Console.ReadLine());
+Console.Write("Enter the column: ");
+col = int.Parse(Console.ReadLine());
 
+CellModel cell = new CellModel(row, col);
+logic.MarkLegalMoves(board, cell, piece);
 
+Utility.PrintBoard(board);
 
 
 
@@ -46,7 +61,7 @@ public static class Utility
                 {
                     Console.Write(" + ");
                 }
-                else if (cell.PieceOccupyingCell != null)
+                else if (cell.PieceOccupyingCell == null)
                 {
                     // Print the pieces letter
                     Console.Write($" {cell.PieceOccupyingCell} ");
