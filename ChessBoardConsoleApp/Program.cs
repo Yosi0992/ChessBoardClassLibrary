@@ -13,8 +13,7 @@ using System.Transactions;
 //-------------------------------------------------------------------------------
 Console.WriteLine("Hello Chess Players!");
 string piece = "";
-int row = 0;
-int col = 0;
+Tuple<int, int> result;
 BoardModel board = new BoardModel(8);
 BoardLogic logic = new BoardLogic();
 
@@ -22,17 +21,11 @@ Utility.PrintBoard(board);
 
 Console.Write("Enter the type of piece you want to place: ");
 piece = Console.ReadLine();
-Console.Write("Enter the row: ");
-row = int.Parse(Console.ReadLine());
-Console.Write("Enter the column: ");
-col = int.Parse(Console.ReadLine());
+result = Utility.GetRowAndCol();
 
-CellModel cell = new CellModel(row, col);
-logic.MarkLegalMoves(board, cell, piece);
+board = logic.MarkLegalMoves(board, board.Grid[result.Item1, result.Item2], piece);
 
 Utility.PrintBoard(board);
-
-
 
 // -------------------------------------------------------------------------------
 // End of the main method
@@ -61,7 +54,7 @@ public static class Utility
                 {
                     Console.Write(" + ");
                 }
-                else if (cell.PieceOccupyingCell == null)
+                else if (!string.IsNullOrEmpty(cell.PieceOccupyingCell))
                 {
                     // Print the pieces letter
                     Console.Write($" {cell.PieceOccupyingCell} ");
@@ -74,6 +67,23 @@ public static class Utility
             Console.WriteLine();
         }
     } // end of print board method
+    /// <summary>
+    /// get the row and column of the piece
+    /// </summary>
+    /// <param name="board"></param>
+    /// <returns></returns>
+    internal static Tuple<int, int> GetRowAndCol()
+    {
+        int row = -1, col = -1;
+        Console.Write("Enter the row number of the piece: ");
+        row = int.Parse(Console.ReadLine());
+
+        Console.Write("Enter the column number of the piece: ");
+        col = int.Parse(Console.ReadLine());
+
+
+        return Tuple.Create(row, col);
+    }
 
 
 }

@@ -68,6 +68,7 @@ namespace ChessBoardClassLibrary.Services.BusinessLogicLayer
             chessPiece = chessPiece.ToLower();
             switch (chessPiece)
             {
+                // Amanuel Haile
                 case "knight":
                     // Set the occupying property of cell model for the current cell
                     board.Grid[currentCell.Row, currentCell.Column].PieceOccupyingCell = "N";
