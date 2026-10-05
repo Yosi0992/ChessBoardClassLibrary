@@ -1,10 +1,5 @@
 ﻿/*
- * Amanuel Haile
- * CST-250
- * 1/30/2026
- * Chess Board Project
- * Activity 2
- * In class activity
+ *
  */
 using System;
 using System.Collections.Generic;

@@ -1,9 +1,6 @@
 ﻿/*
- * Amanuel Haile
- * CST-250
- * 1/30/2026
- * Chess Board Project
- * Activity 2 - BL
+ * Yosilas Feyisa
+ * 
  */
 using ChessBoardClassLibrary.Models;
 using System;
@@ -117,13 +114,18 @@ namespace ChessBoardClassLibrary.Services.BusinessLogicLayer
         private BoardModel MarkValidRookMoves(BoardModel board, CellModel currentCell) 
         {
             int[] rookRowMoves = { -1, 1, 0, 0 };  
-
             int[] rookColMoves = { 0, 0, -1, 1 };
-            for(int i = 0; i < rookRowMoves.Length; i++)
+            for (int i = 0; i < rookRowMoves.Length; i++)
             {
-                if(IsOnBoard(board,currentCell.Row + rookRowMoves[i], currentCell.Column + rookColMoves[i]))
+                int row = currentCell.Row + rookRowMoves[i];
+                int col = currentCell.Column + rookColMoves[i];
+
+                while (IsOnBoard(board, row, col))
                 {
-                    board.Grid[currentCell.Row + rookRowMoves[i], currentCell.Column + rookColMoves[i]].IsLegalNextMove = true;
+                    board.Grid[row, col].IsLegalNextMove = true;
+
+                    row += rookRowMoves[i];
+                    col += rookColMoves[i];
                 }
             }
             return board;
@@ -135,9 +137,15 @@ namespace ChessBoardClassLibrary.Services.BusinessLogicLayer
 
             for (int i = 0; i < bishopRowMoves.Length; i++)
             {
-                if(IsOnBoard(board, currentCell.Row+ bishopRowMoves[i], currentCell.Column + bishopColMoves[i]))
+                int row = currentCell.Row + bishopRowMoves[i];
+                int col = currentCell.Column + bishopColMoves[i];
+
+                while (IsOnBoard(board, row, col))
                 {
-                    board.Grid[currentCell.Row+ bishopRowMoves[i], currentCell.Column + bishopColMoves[i]].IsLegalNextMove= true;
+                    board.Grid[row, col].IsLegalNextMove = true;
+
+                    row += bishopRowMoves[i];
+                    col += bishopColMoves[i];
                 }
             }
             return board;
@@ -147,11 +155,17 @@ namespace ChessBoardClassLibrary.Services.BusinessLogicLayer
             int[] queenRowMoves = { -1, -1, -1, 0, 0, 1, 1, 1 };
             int[] queenColMoves = { -1, 0, 1, -1, 1, -1, 0, 1 };
 
-            for(int i = 0; i < queenRowMoves.Length; i++)
+            for (int i = 0; i < queenRowMoves.Length; i++)
             {
-                if(IsOnBoard(board, currentCell.Row + queenRowMoves[i], currentCell.Column+ queenColMoves[i]))
+                int row = currentCell.Row + queenRowMoves[i];
+                int col = currentCell.Column + queenColMoves[i];
+
+                while (IsOnBoard(board, row, col))
                 {
-                    board.Grid[currentCell.Row + queenRowMoves[i], currentCell.Column + queenColMoves[i]].IsLegalNextMove = true;
+                    board.Grid[row, col].IsLegalNextMove = true;
+
+                    row += queenRowMoves[i];
+                    col += queenColMoves[i];
                 }
             }
             return board;
@@ -161,11 +175,14 @@ namespace ChessBoardClassLibrary.Services.BusinessLogicLayer
             int[] kingRowMoves = { -1, -1, -1, 0, 0, 1, 1, 1 };
             int[] kingColMoves = { -1, 0, 1, -1, 1, -1, 0, 1 };
 
-            for(int i = 0; i < kingRowMoves.Length; i++)
+            for (int i = 0; i < kingRowMoves.Length; i++)
             {
-                if(IsOnBoard(board, currentCell.Row + kingRowMoves[i], currentCell.Column+ kingColMoves[i]))
+                int row = currentCell.Row + kingRowMoves[i];
+                int col = currentCell.Column + kingColMoves[i];
+
+                if (IsOnBoard(board, row, col))
                 {
-                    board.Grid[currentCell.Row + kingRowMoves[i], currentCell.Column + kingColMoves[i]].IsLegalNextMove = true;
+                    board.Grid[row, col].IsLegalNextMove = true;
                 }
             }
             return board;

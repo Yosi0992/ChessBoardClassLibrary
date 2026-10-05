@@ -33,6 +33,8 @@ namespace ChessBoardGUIApp
             label2 = new Label();
             cmbChessPieces = new ComboBox();
             pnlChessBoard = new Panel();
+            cmbThemes = new ComboBox();
+            label3 = new Label();
             SuspendLayout();
             // 
             // label1
@@ -66,14 +68,34 @@ namespace ChessBoardGUIApp
             // 
             pnlChessBoard.Location = new Point(35, 116);
             pnlChessBoard.Name = "pnlChessBoard";
-            pnlChessBoard.Size = new Size(708, 592);
+            pnlChessBoard.Size = new Size(640, 648);
             pnlChessBoard.TabIndex = 3;
+            // 
+            // cmbThemes
+            // 
+            cmbThemes.FormattingEnabled = true;
+            cmbThemes.Items.AddRange(new object[] { "Default", "Cool", "Warm" });
+            cmbThemes.Location = new Point(965, 182);
+            cmbThemes.Name = "cmbThemes";
+            cmbThemes.Size = new Size(242, 40);
+            cmbThemes.TabIndex = 4;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(794, 190);
+            label3.Name = "label3";
+            label3.Size = new Size(152, 32);
+            label3.TabIndex = 5;
+            label3.Text = "Color Theme";
             // 
             // FrmChessBoard
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1230, 838);
+            Controls.Add(label3);
+            Controls.Add(cmbThemes);
             Controls.Add(pnlChessBoard);
             Controls.Add(cmbChessPieces);
             Controls.Add(label2);
@@ -91,5 +113,7 @@ namespace ChessBoardGUIApp
         private Label label2;
         private ComboBox cmbChessPieces;
         private Panel pnlChessBoard;
+        private ComboBox cmbThemes;
+        private Label label3;
     }
 }

@@ -1,12 +1,9 @@
 ﻿/*
- * Amanuel Haile
- * CST-250
- * 2/4/2025
- * Chess Game Console App
- * In class activity
+ *
  */
 using ChessBoardClassLibrary.Models;
 using ChessBoardClassLibrary.Services.BusinessLogicLayer;
+using System.Collections.Concurrent;
 using System.Transactions;
 //-------------------------------------------------------------------------------
 // Start of the main method
@@ -19,8 +16,7 @@ BoardLogic logic = new BoardLogic();
 
 Utility.PrintBoard(board);
 
-Console.Write("Enter the type of piece you want to place: ");
-piece = Console.ReadLine();
+piece = Utility.GetChessPiece();
 result = Utility.GetRowAndCol();
 
 board = logic.MarkLegalMoves(board, board.Grid[result.Item1, result.Item2], piece);
@@ -44,19 +40,38 @@ public static class Utility
     /// <param name="board"></param>
     internal static void PrintBoard(BoardModel board)
     {
-        for (int row = 0; row < board.Size; row++)
+        int size = board.Size;
+
+        // Column headers
+        Console.Write("   ");
+        for (int col = 0; col < size; col++)
         {
-            for (int col = 0; col < board.Size; col++)
+            Console.Write($" {col}  ");
+        }
+        Console.WriteLine();
+
+        // Top border
+        PrintBorder(size);
+
+        for (int row = 0; row < size; row++)
+        {
+            // Row header
+            Console.Write($"{row}  ");
+
+            for (int col = 0; col < size; col++)
             {
                 CellModel cell = board.Grid[row, col];
-                // check if the current cell is a legal move
+
+                // Left wall of the cell
+                Console.Write("|");
+
+                // --- Your exact content rules ---
                 if (cell.IsLegalNextMove)
                 {
                     Console.Write(" + ");
                 }
                 else if (cell.PieceOccupyingCell != "")
                 {
-                    // Print the pieces letter
                     Console.Write($" {cell.PieceOccupyingCell} ");
                 }
                 else
@@ -64,7 +79,12 @@ public static class Utility
                     Console.Write(" . ");
                 }
             }
-            Console.WriteLine();
+
+            // Right wall end + newline
+            Console.WriteLine("|");
+
+            // Border after each row
+            PrintBorder(size);
         }
     } // end of print board method
     /// <summary>
@@ -75,15 +95,71 @@ public static class Utility
     internal static Tuple<int, int> GetRowAndCol()
     {
         int row = -1, col = -1;
-        Console.Write("Enter the row number of the piece: ");
-        row = int.Parse(Console.ReadLine());
-
-        Console.Write("Enter the column number of the piece: ");
-        col = int.Parse(Console.ReadLine());
 
 
+        while(row < 0 || row > 7)
+        {
+            Console.Write("Enter the row of the piece: ");
+
+            if (int.TryParse(Console.ReadLine(), out row) && row >= 0 && row <= 7)
+                break;
+            
+            else
+            {
+                Console.WriteLine("Out of bounds try again");
+            }
+
+        }
+        while (col < 0 || col > 7)
+        {
+            Console.Write("Enter the column of the piece: ");
+
+            if (int.TryParse(Console.ReadLine(), out col) && col >= 0 && col <= 7)
+                break;
+            else
+            {
+                Console.WriteLine("Out of bounds try again");
+            }
+
+        }
         return Tuple.Create(row, col);
     }
+    /// <summary>
+    /// Gets the chess piece and handles invalid input
+    /// </summary>
+    /// <returns></returns>
+    internal static string GetChessPiece()
+    {
+        string piece = "";
+
+        while (true)
+        {
+
+            Console.Write("Enter the type of piece you want to place: ");
+            piece = Console.ReadLine().ToLower().Trim();
+            if(piece == "knight" || piece == "rook" || piece == "bishop" || piece == "king" || piece == "queen")
+            {
+                break;
+            }
+            Console.WriteLine("Invalid piece. Please enter either a Knight, Rook, Bishop, King or Queen");
+        }
+        return piece;
+
+    }
+    /// <summary>
+    /// Border Printer 
+    /// </summary>
+    /// <param name="size"></param>
+    private static void PrintBorder(int size)
+    {
+        Console.Write("   ");
+        for (int col = 0; col < size; col++)
+        {
+            Console.Write("+---");
+        }
+        Console.WriteLine("+");
+    }
+
 
 
 }

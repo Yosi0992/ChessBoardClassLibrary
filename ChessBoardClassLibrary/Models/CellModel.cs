@@ -1,4 +1,11 @@
-﻿
+﻿/*
+ *Yosilas Feyisa
+ * CST-250
+ * 
+ * Chess Board Project
+ * 
+ * In class activity
+ */
 using System;
 using System.Collections.Generic;
 using System.Linq;
